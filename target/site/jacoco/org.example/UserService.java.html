@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">java-quality-test</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">UserService.java</span></div><h1>UserService.java</h1><pre class="source lang-java linenums">package org.example;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+<span class="nc" id="L7">public class UserService {</span>
+<span class="nc" id="L8">    private List&lt;String&gt; users = new ArrayList&lt;&gt;();</span>
+
+    // Ajout d'une validation des entrées
+    public void addUser(String user) {
+<span class="nc bnc" id="L12" title="All 4 branches missed.">        if (user == null || user.trim().isEmpty()) {</span>
+<span class="nc" id="L13">            throw new IllegalArgumentException(&quot;User name cannot be null or empty.&quot;);</span>
+        }
+<span class="nc" id="L15">        users.add(user);</span>
+<span class="nc" id="L16">    }</span>
+
+    // Remplacer le retour null par un Optional pour une gestion plus sûre
+    public Optional&lt;String&gt; findUser(String user) {
+<span class="nc bnc" id="L20" title="All 2 branches missed.">        for (String u : users) {</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">            if (u.equals(user)) {</span>
+<span class="nc" id="L22">                return Optional.of(u);</span>
+            }
+        }
+<span class="nc" id="L25">        return Optional.empty(); // Retourne un Optional vide plutôt que null</span>
+    }
+
+    // Remplacer les messages en dur par des constantes ou un mécanisme de gestion de messages
+    public String deleteUser(String user) {
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (users.contains(user)) {</span>
+<span class="nc" id="L31">            users.remove(user);</span>
+<span class="nc" id="L32">            return getMessage(&quot;user.deleted&quot;);</span>
+        }
+<span class="nc" id="L34">        return getMessage(&quot;user.not.found&quot;);</span>
+    }
+
+    // Utilisation d'une méthode pour obtenir les messages (par exemple, depuis un fichier de propriétés)
+    private String getMessage(String key) {
+        // Implémentation simple (un fichier de propriétés peut être utilisé pour un projet réel)
+<span class="nc bnc" id="L40" title="All 3 branches missed.">        switch (key) {</span>
+            case &quot;user.deleted&quot;:
+<span class="nc" id="L42">                return &quot;User deleted successfully.&quot;;</span>
+            case &quot;user.not.found&quot;:
+<span class="nc" id="L44">                return &quot;User not found.&quot;;</span>
+            default:
+<span class="nc" id="L46">                return &quot;Unknown message key.&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
